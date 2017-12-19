@@ -1,0 +1,33 @@
+
+<div style="height: 100vh; background: rgba(230, 230, 230, 0.22);">
+  <div class="row" style="width: 600px;">
+      <div class="col s12 m6">
+        <div class="card white" style="margin-top: 20vh;">
+          <div class="card-content black-text">
+            <mat-tab-group class="demo-tab-group" (selectedTabChange)="tabChanged($event)" style="padding-left: 100px; padding-right: 106px;">
+              <mat-tab label="Employee" style="width: 50px;" (click)="setLoginType()">
+                <div class="demo-tab-content">
+                </div>
+              </mat-tab>
+              <mat-tab label="Manager" (click)="setLoginType()">
+                <div class="demo-tab-content">
+                </div>  
+              </mat-tab>
+            </mat-tab-group>
+            <span class="card-title" style="font-weight: 400; color: grey;">Login</span>
+            <label for="username" style="margin-top: 20px;">Username</label>
+            <input #username (keyup.enter)="updateUsername(username.value)" (blur)="updateUsername(username.value)" id="username" type="text" style="color: #524f4f; padding-left: 10px;">
+            <label for="password">Password</label>
+            <input #password (keyup.enter)="updatePassword(password.value)" (blur)="updatePassword(password.value)" id="password" type="password" style="color: #524f4f; padding-left: 10px;">
+            <p><a href="register">Register</a></p>
+          </div>
+          <div class="card-action">
+            <button type="button" class="btn btn-primary" style="padding-left: 10px; padding-right: 10px; float: right;" (click)="login()">
+                Login
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+

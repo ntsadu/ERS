@@ -1,0 +1,165 @@
+<ng-sidebar-container style="height: 100vh !important;">
+    <ng-sidebar class="sidebar-style"
+      [(opened)]="_opened"
+      [mode]="_MODES[_modeNum]"
+      [keyClose]="_keyClose"
+      [position]="_POSITIONS[_positionNum]"
+      [dock]="_dock"
+      [dockedSize]="'50px'"
+      [autoCollapseHeight]="_autoCollapseHeight"
+      [autoCollapseWidth]="_autoCollapseWidth"
+      [closeOnClickOutside]="_closeOnClickOutside"
+      [closeOnClickBackdrop]="_closeOnClickBackdrop"
+      [showBackdrop]="_showBackdrop"
+      [animate]="_animate"
+      [trapFocus]="_trapFocus"
+      [autoFocus]="_autoFocus"
+      [sidebarClass]="'demo-sidebar'"
+      [ariaLabel]="'My sidebar'"
+      (onOpenStart)="_onOpenStart()"
+      (onOpened)="_onOpened()"
+      (onCloseStart)="_onCloseStart()"
+      (onClosed)="_onClosed()">
+      <div class="container sidebar-header">
+        <div class="row">
+          <div class="col-8 sidebar-title">
+            Menu
+          </div>
+          <div class="col-4" style="padding-right: 4px; padding-top: 4px;">
+            <button class="demo-control close" (click)="_toggleOpened()">
+              <i class="fa fa-times" style="color: black;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="container sidebar-options">
+        <div class="row">
+          <p class="sidebar-option">
+            <i class="fa fa-cog"></i>
+            <span class="format">Settings</span>
+          </p>
+        </div>
+        <div class="row">
+          <p class="sidebar-option">
+              <i class="fa fa-info-circle"></i>
+              <span class="format">Help</span>
+          </p>
+        </div>
+        <div class="row">
+          <p class="sidebar-option">
+              <i class="fa fa-sign-out"></i>
+              <span class="format" (click)="logout()">Logout</span>
+          </p>
+        </div>
+      </div>
+    </ng-sidebar>
+    <div ng-sidebar-content style="height: 100vh;">
+      <header class="demo-header" style="box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14), 0 0px 5px 0 rgba(0, 0, 0, 0.12), 0 0px 8px 0px rgba(0, 0, 0, 0.2);">
+        <button (click)="_toggleOpened()" class="demo-header__toggle">Toggle sidebar</button>
+        <img src='../../assets/logos/ers-logo.svg' height="30" width="30" style="width: 60px; margin-left: 0%;">
+      </header>
+      <div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions">
+          <div class="modal-content">
+              <h4>New Request</h4>
+              <div class="row" style="margin-top: 30px;">
+                      <form class="col s12">
+                        <div class="row">
+                          <div class="input-field col s6" style="padding: 0;">
+                            <input disabled value="Nahom" id="first_name" type="text" style="color: #524f4f;">
+                            <label for="first_name" style="left: 0px;">First Name</label>
+                          </div>
+                          <div class="input-field col s6" style="padding: 0;">
+                              <input disabled value="Tsadu" id="last_name" type="text" style="color: #524f4f;">
+                              <label for="last_name" style="left: 0px;">Last Name</label>
+                          </div>
+                          </div>
+                      </form>
+              </div>
+              <div class="row">
+                      <form class="col s12">
+                        <div class="row">
+                          <div class="input-field col s6" style="padding: 0; z-index: 9999;">
+                              <mat-form-field >
+                                  <mat-select [(value)] = "selected" style="z-index: 9999 !important; position: relative;">
+                                      <mat-option>None</mat-option>
+                                      <mat-option value="option1">Option 1</mat-option>
+                                      <mat-option value="option2">Option 2</mat-option>
+                                      <mat-option value="option3">Option 3</mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                          <div class="input-field col s6" style="padding: 0;">
+                                  <input disabled value="PENDING" id="request_status" type="text" style="color: #524f4f;">
+                                  <label for="request_status" style="left: 0px;">Request Status</label>
+                                </div>
+                          </div>
+                      </form>
+              </div>
+              <div class="row">
+                      <form class="col s12">
+                        <div class="row">
+                          <div class="input-field col s6" style="padding: 0;">
+                              <input #amount (keyup.enter)="updateAmount(amount.value)" (blur)="updateAmount(amount.value)" placeholder="$0.00" name="amount" id="amount" type="text" style="color: #524f4f; width: 160px;">
+                              <label for="amount" style="left: 0px;">Amount</label>
+                          </div>
+                          <div class="input-field col s6" style="padding: 0;">
+                              <input disabled value="12/11/2017" id="submit_date" type="text" style="color: #524f4f;">
+                              <label for="submit_date" style="left: 0px;">Submit Date</label>
+                          </div>
+                          </div>
+                      </form>
+              </div>
+              <div class="row" style="height: 145px;">
+                  <form class="input-field col s12">
+                      <input #description (keyup.enter)="updateDescription(description.value)" (blur)="updateDescription(description.value)" placeholder="Enter description" id="description" type="text" style="color: #524f4f; height: 130px;">
+                      <label for="description">Description</label>
+                  </form>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <a class="waves-effect waves-green btn-flat" (click)="closeModal()" style="color:rgba(193, 7, 22, 0.918);">Cancel</a>
+              <a class="waves-effect waves-green btn-flat" (click)="closeModal()" style="color:rgba(7, 193, 7, 0.918);">Submit</a>
+          </div>
+      </div>
+  
+      <div class="dashboard-container">
+        
+        <div class="container" style="height: 100%; width: 100%; max-width: 100%; padding-left: 0px; margin-left: 0px; padding-right: 0px;">
+            <div class="row dashboard-content" style="height: 100%; width: 100%;">
+                <div class="col-md-2 col-sm-4" style="padding-left: 0px; padding-right: 0px; box-shadow: 0 6px 5px 0px rgba(0, 0, 0, 0.14), 0 3px 5px 2px rgba(0, 0, 0, 0.12), 0 5px 8px 1px rgba(0, 0, 0, 0.2);">
+                    <div class="dashboard-menu-panel">
+                      <div class="dashboard-header">
+                          <div class="input-group">
+                              <input style="height: 2.5rem;" type="text" class="form-control">
+                              <span class="input-group-addon" style="width: 40px; height: 2.65rem;">
+                                  <i class="fa fa-search"></i>
+                              </span>
+                            </div>
+                      </div>
+                      
+                      <div class="list-group  dashboard-options">
+                              <a class="list-group-item list-group-item-action">Summary</a>
+                              <a id="pending_requests" class="list-group-item list-group-item-action" (click)="switchPage($event)">Pending Requests</a>
+                              <a id="processed_requests" class="list-group-item list-group-item-action" (click)="switchPage($event)">Processed Requests</a>
+                          <div class="panel-filler"></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-8" style="background-color: rgba(227, 228, 219, 0.23); padding-left: 8px; padding-right: 8px; padding-top: 8px;">
+                      <div *ngIf="pendingPage">
+                        <page-pending-requests-manager (submittedDecision)="submittedDecision($event)"></page-pending-requests-manager>
+                      </div>
+                      <div *ngIf="processedPage">
+                        <page-processed-requests-manager></page-processed-requests-manager>
+                      </div>
+                </div>
+            </div>
+        </div>
+  
+      </div>
+    </div>
+  </ng-sidebar-container>
+  
+  
+  
